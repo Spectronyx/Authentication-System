@@ -23,10 +23,6 @@ app.use(cors({
 
 
 //API ENDPOINTS
-
-app.get("/", (req, res) => {
-    res.send("Hello from backend server")
-})
 app.use("/api/auth", authRouter)
 app.use("/api/user", userRouter)
 
