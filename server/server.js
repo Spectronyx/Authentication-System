@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import connectDB from "./config/mongodb.js";
 import authRouter from "./routes/authRoutes.js";
 import userRouter from "./routes/userRoutes.js";
+import path from "path";
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -12,6 +13,7 @@ connectDB();
 
 const allowedOrigins = ['http://localhost:5173'];
 
+app.use(express.static("dist"));
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
@@ -21,11 +23,16 @@ app.use(cors({
 
 
 //API ENDPOINTS
+
 app.get("/", (req, res) => {
     res.send("Hello from backend server")
 })
 app.use("/api/auth", authRouter)
 app.use("/api/user", userRouter)
+
+app.use((req, res) => {
+    res.sendFile(path.join(__dirname, "dist", "index.html"));
+});
 
 app.listen(port, () => {
     console.log(`server running on port ${port}`);
