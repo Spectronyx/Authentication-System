@@ -11,7 +11,12 @@ const app = express();
 const port = process.env.PORT || 4000;
 connectDB();
 
+
+// Fix for __dirname in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const allowedOrigins = ['http://localhost:5173'];
+
 
 app.use(express.static("dist"));
 app.use(express.json());
