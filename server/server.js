@@ -6,30 +6,30 @@ import connectDB from "./config/mongodb.js";
 import authRouter from "./routes/authRoutes.js";
 import userRouter from "./routes/userRoutes.js";
 import path from "path";
+import { fileURLToPath } from "url";
 
 const app = express();
 const port = process.env.PORT || 4000;
 connectDB();
 
-
 // Fix for __dirname in ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const allowedOrigins = ['http://localhost:5173'];
-
+const allowedOrigins = ["http://localhost:5173"];
 
 app.use(express.static("dist"));
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({
-    origin: allowedOrigins,
-    credentials: true,
-}));
-
+app.use(
+    cors({
+        origin: allowedOrigins,
+        credentials: true,
+    }),
+);
 
 //API ENDPOINTS
-app.use("/api/auth", authRouter)
-app.use("/api/user", userRouter)
+app.use("/api/auth", authRouter);
+app.use("/api/user", userRouter);
 
 app.use((req, res) => {
     res.sendFile(path.join(__dirname, "dist", "index.html"));
@@ -37,4 +37,4 @@ app.use((req, res) => {
 
 app.listen(port, () => {
     console.log(`server running on port ${port}`);
-})
+});
