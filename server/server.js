@@ -18,6 +18,7 @@ const __dirname = path.dirname(__filename);
 const allowedOrigins = [
     "http://localhost:5173",
     "https://authentication-system-080k.onrender.com",
+    "https://authentication-system-rouge.vercel.app",
 ];
 
 app.use(express.static(path.join(__dirname, "dist")));
@@ -25,7 +26,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
     cors({
-        origin: true,
+        origin: allowedOrigins,
         credentials: true,
     }),
 );
