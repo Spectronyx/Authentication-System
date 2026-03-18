@@ -19,7 +19,6 @@ const allowedOrigins = [
     "https://authentication-system-rouge.vercel.app",
 ];
 
-app.use(express.static(path.join(__dirname, "dist")));
 app.use(express.json());
 app.use(cookieParser());
 app.use(
